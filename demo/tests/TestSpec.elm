@@ -19,6 +19,10 @@ import RichText.Node exposing (Fragment(..))
 import Test exposing (Test, describe, test)
 
 
+emptyParagraph =
+    "<p></p>"
+
+
 oneParagraph =
     "<p>test</p>"
 
@@ -164,4 +168,8 @@ testHtmlToElementArray =
             \_ -> Expect.equal (Ok expectedOneParagraphWithBold) (htmlToElementArray markdown oneParagraphWithBold)
         , test "Tests that a paragraph with bold and italic text works as expected" <|
             \_ -> Expect.equal (Ok expectedOneParagraphWithBoldAndItalic) (htmlToElementArray markdown oneParagraphWithBoldAndItalic)
+        , test "Tests that an empty paragraph works as expected" <|
+            \_ -> htmlToElementArray markdown emptyParagraph
+                |> Result.map (\_ -> Expect.pass)
+                |> Result.withDefault (Expect.fail "Failed to parse an empty paragraph")
         ]
