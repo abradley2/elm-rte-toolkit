@@ -13,6 +13,7 @@ import RichText.Model.Node
         , blockChildren
         , inlineChildren
         , plainText
+        , Children(..)
         )
 import RichText.Model.Text as Text
 import RichText.Node exposing (Fragment(..))
@@ -21,6 +22,17 @@ import Test exposing (Test, describe, test)
 
 emptyParagraph =
     "<p></p>"
+
+
+expectedEmptyParagraph =
+    Array.fromList 
+        [ BlockFragment <|
+            Array.fromList 
+                [ block
+                    (element paragraph [])
+                    Leaf
+                ]
+        ]
 
 
 oneParagraph =
@@ -169,7 +181,5 @@ testHtmlToElementArray =
         , test "Tests that a paragraph with bold and italic text works as expected" <|
             \_ -> Expect.equal (Ok expectedOneParagraphWithBoldAndItalic) (htmlToElementArray markdown oneParagraphWithBoldAndItalic)
         , test "Tests that an empty paragraph works as expected" <|
-            \_ -> htmlToElementArray markdown emptyParagraph
-                |> Result.map (\_ -> Expect.pass)
-                |> Result.withDefault (Expect.fail "Failed to parse an empty paragraph")
+            \_ -> Expect.equal (Ok expectedEmptyParagraph) (htmlToElementArray markdown emptyParagraph)
         ]

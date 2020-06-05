@@ -202,6 +202,9 @@ arrayToChildNodes contentType results =
             BlockLeafNodeType ->
                 Ok Leaf
 
+            TextBlockNodeType _ ->
+                Ok Leaf
+
             _ ->
                 Err "Invalid node type for empty fragment result array"
 
