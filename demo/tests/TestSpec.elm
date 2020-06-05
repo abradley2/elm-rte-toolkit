@@ -8,12 +8,12 @@ import RichText.Model.Element exposing (element)
 import RichText.Model.Mark exposing (mark)
 import RichText.Model.Node
     exposing
-        ( Inline(..)
+        ( Children(..)
+        , Inline(..)
         , block
         , blockChildren
         , inlineChildren
         , plainText
-        , Children(..)
         )
 import RichText.Model.Text as Text
 import RichText.Node exposing (Fragment(..))
@@ -25,9 +25,9 @@ emptyParagraph =
 
 
 expectedEmptyParagraph =
-    Array.fromList 
+    Array.fromList
         [ BlockFragment <|
-            Array.fromList 
+            Array.fromList
                 [ block
                     (element paragraph [])
                     Leaf
